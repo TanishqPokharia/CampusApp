@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:blur/blur.dart';
 import 'package:campus_app/main.dart';
+import 'package:campus_app/widgets/sign_in_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:glass/glass.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -15,17 +15,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Container(
-              child: ImageFiltered(
-            imageFilter: ImageFilter.blur(
-                sigmaX: 6, sigmaY: 6, tileMode: TileMode.mirror),
-            child: Image.asset("assets/Vector1.png")
-                .blurred(colorOpacity: 0.5, blurColor: Colors.black26),
-          )),
-        ),
+        const SignInBackgroundImage(),
         Scaffold(
           backgroundColor: Colors.indigo.shade900.withOpacity(0.1),
           body: Column(
@@ -38,7 +28,7 @@ class SignInScreen extends StatelessWidget {
                     vertical: context.responsiveSize(15),
                     horizontal: context.responsiveSize(40)),
                 child: TextFormField(
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: const InputDecoration(
                             hintText: "SRM Email / Net ID",
                             hintStyle: TextStyle(color: Colors.white54),
