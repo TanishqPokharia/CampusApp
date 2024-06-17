@@ -7,12 +7,19 @@ class SignInBackgroundImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageFiltered(
-      imageFilter:
-          ImageFilter.blur(sigmaX: 6, sigmaY: 6, tileMode: TileMode.mirror),
-      child: Image.asset(
-        "assets/Vector1.png",
-      ),
-    );
+    return  Align(
+              alignment: AlignmentDirectional(0, 0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  'assets/background.png',
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            );
   }
 }
+
+
