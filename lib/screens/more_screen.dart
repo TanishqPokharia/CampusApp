@@ -1,3 +1,4 @@
+import 'package:campus_app/widgets/screen_base.dart';
 import 'package:flutter/material.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -5,6 +6,9 @@ class MoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ScreenBase(
+      title: "More",
+      child: Container(),
+    );
   }
 }

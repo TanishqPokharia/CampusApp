@@ -1,3 +1,4 @@
+import 'package:campus_app/widgets/screen_base.dart';
 import 'package:flutter/material.dart';
 
 class MarksScreen extends StatelessWidget {
@@ -5,6 +6,9 @@ class MarksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ScreenBase(
+      title: "Marks",
+      child: Container(),
+    );
   }
 }
