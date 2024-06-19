@@ -1,6 +1,5 @@
 import 'package:campus_app/main.dart';
-import 'package:campus_app/screens/dashboard_screen.dart';
-import 'package:campus_app/screens/sign_in_screen.dart';
+import 'package:campus_app/screens/events_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:glass/glass.dart';
@@ -18,7 +17,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      floatingActionButton: Container(
+      floatingActionButton: Padding(
         padding: EdgeInsets.only(
             left: context.responsiveSize(50),
             right: context.responsiveSize(10)),
@@ -49,7 +48,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                 BorderRadius.circular(context.responsiveSize(20))),
       ),
       // body: DashboardScreen(),
-      body: SignInScreen(),
+      body: EventsScreen(),
     );
   }
 }
