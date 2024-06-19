@@ -66,7 +66,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
                 BorderRadius.circular(context.responsiveSize(20))),
       ),
       // body: DashboardScreen
-      body: EventsScreen(),
+      body: screens[selectedIndex],
 
     );
   }
