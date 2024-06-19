@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream
 import 'package:campus_app/main.dart';
 import 'package:campus_app/screens/dashboard_screen.dart';
 import 'package:campus_app/screens/sign_in_screen.dart';
-=======
->>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 import 'package:campus_app/main.dart';
 
@@ -69,12 +66,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
             clipBorderRadius:
                 BorderRadius.circular(context.responsiveSize(20))),
       ),
-<<<<<<< Updated upstream
       // body: DashboardScreen(),
-      body: SignInScreen(),
-=======
       body: screens[selectedIndex],
->>>>>>> Stashed changes
     );
   }
 }
