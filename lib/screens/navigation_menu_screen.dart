@@ -1,7 +1,18 @@
+<<<<<<< Updated upstream
 import 'package:campus_app/main.dart';
 import 'package:campus_app/screens/dashboard_screen.dart';
 import 'package:campus_app/screens/sign_in_screen.dart';
+=======
+>>>>>>> Stashed changes
 import 'package:flutter/material.dart';
+import 'package:campus_app/main.dart';
+
+import 'package:campus_app/screens/dashboard_screen.dart';
+import 'package:campus_app/screens/attendance_screen.dart';
+import 'package:campus_app/screens/events_screen.dart';
+import 'package:campus_app/screens/marks_screen.dart';
+import 'package:campus_app/screens/more_screen.dart';
+
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:glass/glass.dart';
 
@@ -14,6 +25,16 @@ class NavigationMenu extends StatefulWidget {
 
 class _NavigationMenuState extends State<NavigationMenu> {
   int selectedIndex = 0;
+
+  // List of screens corresponding to each tab
+  final List<Widget> screens = [
+    DashboardScreen(),
+    AttendanceScreen(),
+    EventsScreen(),
+    MarksScreen(),
+    MoreScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +69,12 @@ class _NavigationMenuState extends State<NavigationMenu> {
             clipBorderRadius:
                 BorderRadius.circular(context.responsiveSize(20))),
       ),
+<<<<<<< Updated upstream
       // body: DashboardScreen(),
       body: SignInScreen(),
+=======
+      body: screens[selectedIndex],
+>>>>>>> Stashed changes
     );
   }
 }
