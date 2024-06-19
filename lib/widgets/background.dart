@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:blur/blur.dart';
 import 'package:campus_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,8 +19,9 @@ class BackgroundImage extends StatelessWidget {
             SvgPicture.asset(
               "assets/Dashboard.svg",
               width: context.screenWidth,
-              fit: BoxFit.cover,
-            ),
+              fit: BoxFit.fill,
+            ).blurred(
+                blurColor: Colors.transparent, colorOpacity: 0.1, blur: 25),
           ],
         ),
       ),
