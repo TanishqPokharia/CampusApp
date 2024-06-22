@@ -11,6 +11,9 @@ class GlassTextFormField extends StatelessWidget {
     return TextFormField(
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: context.responsiveSize(30),
+                    vertical: context.responsiveSize(20)),
                 hintText: hintText,
                 hintStyle: const TextStyle(color: Colors.white54),
                 border: const OutlineInputBorder(borderSide: BorderSide.none),
