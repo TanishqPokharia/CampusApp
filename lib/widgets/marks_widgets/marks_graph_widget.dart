@@ -8,7 +8,7 @@ class MarksGraphWidget extends StatelessWidget {
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 7.6,
+      fontSize: 10,
     );
     Widget text;
     switch (value.toInt()) {
@@ -47,7 +47,7 @@ class MarksGraphWidget extends StatelessWidget {
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 7.6,
+      fontSize: 10,
     );
     String text;
     switch (value.toInt()) {
@@ -70,9 +70,7 @@ class MarksGraphWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LineChart(
-
       LineChartData(
-
         minX: 0,
         maxX: 7,
         minY: 0,
@@ -128,7 +126,6 @@ class MarksGraphWidget extends StatelessWidget {
             isStrokeCapRound: true,
           ),
         ],
-        
       ),
     );
   }

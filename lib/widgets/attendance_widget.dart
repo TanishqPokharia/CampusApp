@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:glass/glass.dart';
 import 'package:campus_app/main.dart';
@@ -64,7 +62,8 @@ class AttendanceWidget extends StatelessWidget {
                           style: context.textSmall,
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: context.responsiveSize(10)),
+                          margin:
+                              EdgeInsets.only(top: context.responsiveSize(10)),
                           width: context.responsiveSize(196),
                           height: context.responsiveSize(31),
                           child: const Row(

@@ -1,3 +1,4 @@
+import 'package:campus_app/main.dart';
 import 'package:campus_app/widgets/screen_base.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class MarksScreen extends StatelessWidget {
     return ScreenBase(
       title: "Marks",
       child: Container(
+        width: context.screenWidth,
         child: MarksWidget(),
       ),
     );

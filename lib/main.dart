@@ -1,6 +1,4 @@
-import 'package:campus_app/screens/dashboard_screen.dart';
 import 'package:campus_app/screens/navigation_menu_screen.dart';
-import 'package:campus_app/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
