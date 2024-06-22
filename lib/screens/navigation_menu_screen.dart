@@ -1,5 +1,7 @@
 import 'package:campus_app/main.dart';
 import 'package:campus_app/screens/events_screen.dart';
+import 'package:campus_app/screens/sign_in_screen.dart';
+import 'package:campus_app/widgets/marks_widgets/marks_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_app/main.dart';
 
@@ -67,7 +69,6 @@ class _NavigationMenuState extends State<NavigationMenu> {
       ),
       // body: DashboardScreen
       body: screens[selectedIndex],
-
     );
   }
 }

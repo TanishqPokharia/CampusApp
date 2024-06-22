@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:blur/blur.dart';
 import 'package:campus_app/main.dart';
+import 'package:campus_app/widgets/button.dart';
+import 'package:campus_app/widgets/glass_textformfield.dart';
 import 'package:campus_app/widgets/sign_in_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,70 +25,28 @@ class SignInScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset("assets/Logo.png"),
-              Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: context.responsiveSize(15),
-                    horizontal: context.responsiveSize(40)),
-                child: TextFormField(
-                        style: const TextStyle(color: Colors.white),
-                        decoration: const InputDecoration(
-                            hintText: "SRM Email / Net ID",
-                            hintStyle: TextStyle(color: Colors.white54),
-                            border:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            focusedBorder:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none)))
-                    .asGlass(
-                        tintColor: Colors.indigo.shade400,
-                        clipBorderRadius:
-                            BorderRadius.circular(context.responsiveSize(20))),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: context.responsiveSize(15),
-                    horizontal: context.responsiveSize(40)),
-                child: TextFormField(
-                        style: TextStyle(color: Colors.white),
-                        decoration: const InputDecoration(
-                            hintText: "Password",
-                            hintStyle: TextStyle(color: Colors.white54),
-                            border:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            focusedBorder:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none)))
-                    .asGlass(
-                        tintColor: Colors.indigo.shade400,
-                        clipBorderRadius:
-                            BorderRadius.circular(context.responsiveSize(20))),
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: context.responsiveSize(40),
+                      bottom: context.responsiveSize(10),
+                      left: context.responsiveSize(40),
+                      right: context.responsiveSize(40)),
+                  child: GlassTextFormField(hintText: "SRM Email/ Net ID")),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: context.responsiveSize(40),
+                    vertical: context.responsiveSize(10)),
+                child: GlassTextFormField(hintText: "Password"),
               ),
               SizedBox(
                 height: context.responsiveSize(20),
               ),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(context.responsiveSize(10)),
-                    gradient: const LinearGradient(colors: [
-                      Colors.lightBlue,
-                      Colors.indigoAccent,
-                      Color.fromARGB(255, 121, 35, 220)
-                    ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                context.responsiveSize(10))),
-                        foregroundColor: Colors.white,
-                        minimumSize: Size(context.responsiveSize(400), 50)),
-                    onPressed: () {},
-                    child: const Text(
-                      "Sign In",
-                      style: TextStyle(fontSize: 20),
-                    )),
+              GradientButton(
+                title: "Sign In",
+                textStyle: context.textMedium,
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(
+                    horizontal: context.responsiveSize(40)),
               )
             ],
           ),
