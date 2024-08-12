@@ -1,7 +1,17 @@
-import 'package:campus_app/screens/navigation_menu_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'cookie_storage.dart';
+
+import 'package:campus_app/screens/navigation_menu_screen.dart';
+import 'screens/sign_in_screen.dart';
+
+bool isLoggedIn = false;
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final storedCookie = await CookieStorage().getCookie('X-CSRF-TOKEN');
+  if (storedCookie?.isNotEmpty ?? false) {
+    isLoggedIn = true;
+  }
   runApp(const MyApp());
 }
 
@@ -20,7 +30,11 @@ class MyApp extends StatelessWidget {
               titleSmall: TextStyle(fontSize: context.responsiveSize(16)),
               titleMedium: TextStyle(fontSize: context.responsiveSize(24)),
               titleLarge: TextStyle(fontSize: context.responsiveSize(30)))),
-      home: NavigationMenu(),
+      home: isLoggedIn ? const NavigationMenu() : const SignInScreen(),
+      routes: {
+        '/signIn': (context) => const SignInScreen(),
+        '/navigationMenu': (context) => const NavigationMenu(),
+      },
     );
   }
 }

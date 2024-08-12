@@ -57,6 +57,7 @@ class EventCard extends StatelessWidget {
                       title: "Register",
                       textStyle: context.textSmall!
                           .copyWith(fontSize: context.responsiveSize(20)),
+                      onPressed: () {},
                     )
                   ],
                 )
