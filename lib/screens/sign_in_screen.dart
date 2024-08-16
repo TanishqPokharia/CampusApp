@@ -1,60 +1,23 @@
 import 'package:campus_app/main.dart';
+import 'package:campus_app/providers/auth/auth_loading_provider.dart';
+import 'package:campus_app/providers/auth/auth_notifier_provider.dart';
 import 'package:campus_app/widgets/button.dart';
 import 'package:campus_app/widgets/glass_textformfield.dart';
 import 'package:campus_app/widgets/sign_in_background.dart';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:campus_app/cookie_storage.dart'; 
-
-class SignInScreen extends StatefulWidget {
+class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
 
   @override
-  _SignInScreenState createState() => _SignInScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _signIn() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      final email = _emailController.text;
-      final password = _passwordController.text;
-
-      final response = await http.post(
-        Uri.parse('https://campusapi-puce.vercel.app/api/auth/login'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'username': email, 'password': password}),
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final cookies = data['Cookies'] as String;
-
-        await CookieStorage().saveCookie(cookies);
-
-        Navigator.pushReplacementNamed(context, '/navigationMenu');
-      } else {
-        // Handle error
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Sign in failed')),
-        );
-      }
-    }
-  }
-
+class _SignInScreenState extends ConsumerState<SignInScreen> {
+  final formKey = GlobalKey<FormState>();
+  final Map<String, String> authDetails = {};
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -63,7 +26,7 @@ class _SignInScreenState extends State<SignInScreen> {
         Scaffold(
           backgroundColor: Colors.indigo.shade900.withOpacity(0.1),
           body: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,8 +39,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       left: context.responsiveSize(40),
                       right: context.responsiveSize(40)),
                   child: GlassTextFormField(
-                    controller: _emailController,
                     hintText: "Email",
+                    onSaved: (value) {
+                      authDetails['email'] = value!;
+                    },
+                    validator: (value) {
+                      return;
+                    },
                   ),
                 ),
                 Padding(
@@ -85,20 +53,38 @@ class _SignInScreenState extends State<SignInScreen> {
                       horizontal: context.responsiveSize(40),
                       vertical: context.responsiveSize(10)),
                   child: GlassTextFormField(
-                    controller: _passwordController,
                     hintText: "Password",
+                    onSaved: (value) {
+                      authDetails['password'] = value!;
+                    },
+                    validator: (value) {
+                      return;
+                    },
                   ),
                 ),
                 SizedBox(
                   height: context.responsiveSize(20),
                 ),
                 GradientButton(
-                  title: "Sign In",
-                  textStyle: context.textMedium,
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(
                       horizontal: context.responsiveSize(40)),
-                  onPressed: _signIn,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      final String email = authDetails['email']!;
+                      final String password = authDetails['password']!;
+                      ref
+                          .watch(authNotifierProvider.notifier)
+                          .signIn(context, email, password);
+                    }
+                  },
+                  child: ref.watch(authLoadingProvider)
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          "Sign In",
+                          style: context.textMedium,
+                        ),
                 )
               ],
             ),

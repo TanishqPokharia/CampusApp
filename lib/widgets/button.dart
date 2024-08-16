@@ -7,17 +7,15 @@ class GradientButton extends StatelessWidget {
     this.width,
     this.height,
     this.margin,
-    required this.title,
-    this.textStyle,
+    required this.child,
     required this.onPressed,
   });
 
   final double? width;
   final double? height;
   final EdgeInsetsGeometry? margin;
-  final String title;
-  final TextStyle? textStyle;
   final VoidCallback onPressed;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -38,19 +36,15 @@ class GradientButton extends StatelessWidget {
         ),
       ),
       child: TextButton(
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(context.responsiveSize(10)),
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(context.responsiveSize(10)),
+            ),
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.transparent, // Ensure the gradient shows
           ),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.transparent, // Ensure the gradient shows
-        ),
-        onPressed: onPressed,
-        child: Text(
-          title,
-          style: textStyle,
-        ),
-      ),
+          onPressed: onPressed,
+          child: child),
     );
   }
 }

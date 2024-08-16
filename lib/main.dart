@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:campus_app/screens/navigation_menu_screen.dart';
 import 'package:campus_app/screens/sign_in_screen.dart';
 import 'package:campus_app/cookie_storage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 bool isLoggedIn = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   final storedCookie = await CookieStorage().getCookie();
-  
+
   if (storedCookie?.isNotEmpty ?? false) {
     isLoggedIn = true;
   }
-  
+
   runApp(const MyApp());
 }
 
@@ -22,22 +23,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData.dark().copyWith(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        textTheme: TextTheme(
-          titleSmall: TextStyle(fontSize: context.responsiveSize(16)),
-          titleMedium: TextStyle(fontSize: context.responsiveSize(24)),
-          titleLarge: TextStyle(fontSize: context.responsiveSize(30)),
+    return ProviderScope(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData.dark().copyWith(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          textTheme: TextTheme(
+            titleSmall: TextStyle(fontSize: context.responsiveSize(16)),
+            titleMedium: TextStyle(fontSize: context.responsiveSize(24)),
+            titleLarge: TextStyle(fontSize: context.responsiveSize(30)),
+          ),
         ),
+        home: isLoggedIn ? const NavigationMenu() : SignInScreen(),
+        routes: {
+          '/signIn': (context) => SignInScreen(),
+          '/navigationMenu': (context) => const NavigationMenu(),
+        },
       ),
-      home: isLoggedIn ? const NavigationMenu() : const SignInScreen(),
-      routes: {
-        '/signIn': (context) => const SignInScreen(),
-        '/navigationMenu': (context) => const NavigationMenu(),
-      },
     );
   }
 }

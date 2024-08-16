@@ -1,13 +1,9 @@
 import 'package:campus_app/main.dart';
 import 'package:campus_app/screens/events_screen.dart';
-import 'package:campus_app/screens/sign_in_screen.dart';
-import 'package:campus_app/widgets/marks_widgets/marks_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:campus_app/main.dart';
 
 import 'package:campus_app/screens/dashboard_screen.dart';
 import 'package:campus_app/screens/attendance_screen.dart';
-import 'package:campus_app/screens/events_screen.dart';
 import 'package:campus_app/screens/marks_screen.dart';
 import 'package:campus_app/screens/more_screen.dart';
 

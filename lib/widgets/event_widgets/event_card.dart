@@ -54,9 +54,11 @@ class EventCard extends StatelessWidget {
                   children: [
                     EventPopularity(),
                     GradientButton(
-                      title: "Register",
-                      textStyle: context.textSmall!
-                          .copyWith(fontSize: context.responsiveSize(20)),
+                      child: Text(
+                        "Register",
+                        style: context.textSmall!
+                            .copyWith(fontSize: context.responsiveSize(20)),
+                      ),
                       onPressed: () {},
                     )
                   ],
