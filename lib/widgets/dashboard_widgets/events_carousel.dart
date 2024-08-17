@@ -1,15 +1,13 @@
 import 'package:campus_app/main.dart';
+import 'package:campus_app/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
-class EventsCarousel extends StatefulWidget {
-  const EventsCarousel({super.key});
+class EventsCarousel extends StatelessWidget {
+  const EventsCarousel({super.key, required this.events});
 
-  @override
-  State<EventsCarousel> createState() => _EventsCarouselState();
-}
+  final List<Event> events;
 
-class _EventsCarouselState extends State<EventsCarousel> {
   @override
   Widget build(BuildContext context) {
     return FlutterCarousel(
@@ -18,7 +16,7 @@ class _EventsCarouselState extends State<EventsCarousel> {
           showIndicator: true,
           slideIndicator: CircularSlideIndicator(),
         ),
-        items: [1, 2, 3, 4, 5].map((i) {
+        items: events.map((e) {
           return Builder(
             builder: (BuildContext context) {
               return Stack(
@@ -29,8 +27,8 @@ class _EventsCarouselState extends State<EventsCarousel> {
                     margin: EdgeInsets.symmetric(horizontal: 5.0),
                     decoration: BoxDecoration(
                         color: Colors.indigo,
-                        image: const DecorationImage(
-                            image: AssetImage("assets/Logo.png"),
+                        image: DecorationImage(
+                            image: NetworkImage(e.bannerUrl),
                             fit: BoxFit.cover),
                         borderRadius:
                             BorderRadius.circular(context.responsiveSize(20))),

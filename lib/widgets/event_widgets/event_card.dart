@@ -1,12 +1,14 @@
 import 'package:campus_app/main.dart';
+import 'package:campus_app/models/event.dart';
 import 'package:campus_app/widgets/button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'event_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:glass/glass.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({super.key});
-
+  const EventCard({super.key, required this.event});
+  final Event event;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,8 +20,8 @@ class EventCard extends StatelessWidget {
             height: context.responsiveSize(250),
             decoration: BoxDecoration(
                 color: Colors.indigo,
-                image: const DecorationImage(
-                    fit: BoxFit.contain, image: AssetImage("assets/Logo.png")),
+                image: DecorationImage(
+                    fit: BoxFit.cover, image: NetworkImage(event.bannerUrl)),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(context.responsiveSize(10)),
                     topRight: Radius.circular(context.responsiveSize(10)))),
@@ -29,21 +31,28 @@ class EventCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const EventHeader(
-                    title: "Mozofest 2024",
+                EventHeader(
+                    title: event.title,
                     organizer: "SRMKZILLA",
-                    image: "assets/Logo.png"),
+                    image: event.bannerUrl),
                 SizedBox(
                   height: context.responsiveSize(20),
                 ),
                 Wrap(
                   spacing: context.responsiveSize(10),
                   runSpacing: context.responsiveSize(10),
-                  children: const [
-                    EventTag(title: "1.6.24 - 5.6.24"),
-                    EventTag(title: "11 am to 12 pm"),
-                    EventTag(title: "#ODs"),
-                    EventTag(title: "#Refreshments")
+                  children: [
+                    EventTag(title: event.dates),
+                    EventTag(title: event.timing),
+                    if (event.odsProvided)
+                      EventTag(title: "#ODs")
+                    else
+                      SizedBox(),
+                    if (event.refreshmentsProvided)
+                      EventTag(title: "#Refreshments")
+                    else
+                      SizedBox(),
+                    ...event.labels.map((title) => EventTag(title: "#$title"))
                   ],
                 ),
                 SizedBox(
@@ -52,14 +61,22 @@ class EventCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    EventPopularity(),
+                    EventPopularity(
+                      popularity: event.popularity.toString(),
+                    ),
                     GradientButton(
                       child: Text(
                         "Register",
                         style: context.textSmall!
                             .copyWith(fontSize: context.responsiveSize(20)),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (await canLaunchUrl(Uri.parse(event.websiteLink))) {
+                          if (!await launchUrl(Uri.parse(event.websiteLink))) {
+                            throw Exception('Could not launch url');
+                          }
+                        }
+                      },
                     )
                   ],
                 )

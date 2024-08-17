@@ -36,8 +36,8 @@ class EventHeader extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.indigo,
               borderRadius: BorderRadius.circular(context.responsiveSize(20)),
-              image: const DecorationImage(
-                  fit: BoxFit.contain, image: AssetImage("assets/Logo.png"))),
+              image: DecorationImage(
+                  fit: BoxFit.contain, image: NetworkImage(image))),
         )
       ],
     );

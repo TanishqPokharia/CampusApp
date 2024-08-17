@@ -1,4 +1,5 @@
 import 'package:campus_app/main.dart';
+import 'package:campus_app/providers/planner/planner_provider.dart';
 import 'package:campus_app/widgets/planner_widgets/calendar.dart';
 import 'package:campus_app/widgets/planner_widgets/classes_left.dart';
 import 'package:campus_app/widgets/planner_widgets/date_selector.dart';
@@ -6,13 +7,14 @@ import 'package:campus_app/widgets/screen_base.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:glass/glass.dart';
 
-class MoreScreen extends StatelessWidget {
+class MoreScreen extends ConsumerWidget {
   const MoreScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ScreenBase(
       title: "Planner",
       child: SizedBox(
@@ -21,17 +23,19 @@ class MoreScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Calendar(),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: context.responsiveSize(20),
-                  top: context.responsiveSize(10)),
-              child: Text(
-                "Nothing Today",
-                style:
-                    context.textMedium!.copyWith(color: Colors.blue.shade600),
-              ),
-            ),
+            ref.watch(plannerProvider).when(
+                  loading: () => const CircularProgressIndicator(),
+                  data: (data) {
+                    return Calendar(
+                      data: data,
+                    );
+                  },
+                  error: (error, stackTrace) {
+                    print(error);
+                    print(stackTrace);
+                    return Container();
+                  },
+                ),
             Padding(
               padding: EdgeInsets.only(left: context.responsiveSize(20)),
               child: Row(

@@ -1,4 +1,5 @@
 import 'package:campus_app/main.dart';
+import 'package:campus_app/providers/events/events_provider.dart';
 import 'package:campus_app/providers/user_data/user_data_provider.dart';
 import 'package:campus_app/widgets/screen_base.dart';
 import 'package:flutter/material.dart';
@@ -150,10 +151,24 @@ class DashboardScreen extends ConsumerWidget {
             margin: EdgeInsets.only(top: context.responsiveSize(20)),
             child: const FeatureTitle(icon: Icons.event, title: "Events"),
           ),
-          Container(
-            margin: EdgeInsets.all(context.responsiveSize(20)),
-            child: EventsCarousel(),
-          )
+          ref.watch(eventsProvider).when(
+                loading: () => Center(
+                  child: CircularProgressIndicator(),
+                ),
+                data: (data) {
+                  return Container(
+                    margin: EdgeInsets.all(context.responsiveSize(20)),
+                    child: EventsCarousel(
+                      events: data,
+                    ),
+                  );
+                },
+                error: (error, stackTrace) {
+                  print(error);
+                  print(stackTrace);
+                  return const Text("Could not fetch events");
+                },
+              )
         ],
       ),
     );
