@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Courses {
+class Course {
   final String courseCode;
   final String courseTitle;
   final String category;
@@ -9,11 +9,12 @@ class Courses {
   final String slot;
   final String hoursConducted;
   final String hoursAbsent;
+  final String hoursPresent;
   final num margin;
   final num required;
   final String attendancePercent;
-  final String practicalDetails;
-  Courses({
+  final dynamic practicalDetails;
+  Course({
     required this.courseCode,
     required this.courseTitle,
     required this.category,
@@ -21,13 +22,14 @@ class Courses {
     required this.slot,
     required this.hoursConducted,
     required this.hoursAbsent,
+    required this.hoursPresent,
     required this.margin,
     required this.required,
     required this.attendancePercent,
     required this.practicalDetails,
   });
 
-  Courses copyWith({
+  Course copyWith({
     String? courseCode,
     String? courseTitle,
     String? category,
@@ -35,12 +37,13 @@ class Courses {
     String? slot,
     String? hoursConducted,
     String? hoursAbsent,
+    String? hoursPresent,
     num? margin,
     num? required,
     String? attendancePercent,
-    String? practicalDetails,
+    dynamic practicalDetails,
   }) {
-    return Courses(
+    return Course(
       courseCode: courseCode ?? this.courseCode,
       courseTitle: courseTitle ?? this.courseTitle,
       category: category ?? this.category,
@@ -48,6 +51,7 @@ class Courses {
       slot: slot ?? this.slot,
       hoursConducted: hoursConducted ?? this.hoursConducted,
       hoursAbsent: hoursAbsent ?? this.hoursAbsent,
+      hoursPresent: hoursPresent ?? this.hoursPresent,
       margin: margin ?? this.margin,
       required: required ?? this.required,
       attendancePercent: attendancePercent ?? this.attendancePercent,
@@ -64,6 +68,7 @@ class Courses {
       'slot': slot,
       'hoursConducted': hoursConducted,
       'hoursAbsent': hoursAbsent,
+      'hoursPresent': hoursPresent,
       'margin': margin,
       'required': required,
       'attendancePercent': attendancePercent,
@@ -71,8 +76,8 @@ class Courses {
     };
   }
 
-  factory Courses.fromMap(Map<String, dynamic> map) {
-    return Courses(
+  factory Course.fromMap(Map<String, dynamic> map) {
+    return Course(
       courseCode: map['courseCode'] as String,
       courseTitle: map['courseTitle'] as String,
       category: map['category'] as String,
@@ -80,25 +85,26 @@ class Courses {
       slot: map['slot'] as String,
       hoursConducted: map['hoursConducted'] as String,
       hoursAbsent: map['hoursAbsent'] as String,
+      hoursPresent: map['hoursPresent'] as String,
       margin: map['margin'] as num,
       required: map['required'] as num,
       attendancePercent: map['attendancePercent'] as String,
-      practicalDetails: map['practicalDetails'] as String,
+      practicalDetails: map['practicalDetails'] as dynamic,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Courses.fromJson(String source) =>
-      Courses.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Course.fromJson(String source) =>
+      Course.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Courses(courseCode: $courseCode, courseTitle: $courseTitle, category: $category, facultyName: $facultyName, slot: $slot, hoursConducted: $hoursConducted, hoursAbsent: $hoursAbsent, margin: $margin, required: $required, attendancePercent: $attendancePercent, practicalDetails: $practicalDetails)';
+    return 'Courses(courseCode: $courseCode, courseTitle: $courseTitle, category: $category, facultyName: $facultyName, slot: $slot, hoursConducted: $hoursConducted, hoursAbsent: $hoursAbsent, hoursPresent: $hoursPresent, margin: $margin, required: $required, attendancePercent: $attendancePercent, practicalDetails: $practicalDetails)';
   }
 
   @override
-  bool operator ==(covariant Courses other) {
+  bool operator ==(covariant Course other) {
     if (identical(this, other)) return true;
 
     return other.courseCode == courseCode &&
@@ -108,6 +114,7 @@ class Courses {
         other.slot == slot &&
         other.hoursConducted == hoursConducted &&
         other.hoursAbsent == hoursAbsent &&
+        other.hoursPresent == hoursPresent &&
         other.margin == margin &&
         other.required == required &&
         other.attendancePercent == attendancePercent &&
@@ -123,6 +130,7 @@ class Courses {
         slot.hashCode ^
         hoursConducted.hashCode ^
         hoursAbsent.hashCode ^
+        hoursPresent.hashCode ^
         margin.hashCode ^
         required.hashCode ^
         attendancePercent.hashCode ^

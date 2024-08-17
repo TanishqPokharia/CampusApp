@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:campus_app/cookie_storage.dart';
-import 'package:campus_app/models/courses.dart';
+import 'package:campus_app/models/course.dart';
 import 'package:campus_app/models/test_performance.dart';
 import 'package:campus_app/models/user_data.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +25,8 @@ class UserDataNotifier extends StateNotifier<void> {
         final body = jsonDecode(response.body);
         final List<dynamic> testPerformances = body['testPerformances'];
         final List<dynamic> courses = body['courses'];
-        final List<Courses> coursesModel =
-            courses.map((course) => Courses.fromMap(course)).toList();
+        final List<Course> coursesModel =
+            courses.map((course) => Course.fromMap(course)).toList();
         final List<TestPerformance> testPerformancesModel = testPerformances
             .map((testPerformance) => TestPerformance.fromMap(testPerformance))
             .toList();

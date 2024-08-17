@@ -1,9 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:campus_app/models/course.dart';
 import 'package:flutter/material.dart';
 import 'package:glass/glass.dart';
+
 import 'package:campus_app/main.dart';
 
 class StatCard extends StatelessWidget {
-  const StatCard({super.key});
+  const StatCard({
+    super.key,
+    required this.type,
+    required this.value,
+    required this.color,
+  });
+  final String type;
+  final Color color;
+  final String value;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,13 +31,13 @@ class StatCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              "P",
-              style: context.textSmall,
+              type,
+              style: context.textSmall!.copyWith(color: color),
               softWrap: true,
             ),
             Text(
-              "20",
-              style: context.textSmall,
+              value,
+              style: context.textSmall!.copyWith(color: color),
               softWrap: true,
             ),
           ],
@@ -37,64 +48,99 @@ class StatCard extends StatelessWidget {
 }
 
 class AttendanceWidget extends StatelessWidget {
-  const AttendanceWidget({super.key});
+  final Course course;
+  const AttendanceWidget({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-            padding: EdgeInsets.all(context.responsiveSize(18)),
+            padding: EdgeInsets.all(context.responsiveSize(20)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Environmental Science",
-                          style: context.textMedium,
-                          softWrap: true,
-                        ),
-                        Text(
-                          "21PYB102J",
-                          style: context.textSmall,
-                        ),
-                        Container(
-                          margin:
-                              EdgeInsets.only(top: context.responsiveSize(10)),
-                          width: context.responsiveSize(196),
-                          height: context.responsiveSize(31),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            course.courseTitle,
+                            style: context.textMedium,
+                            softWrap: true,
+                          ),
+                          Row(
+                            spacing: context.responsiveSize(20),
                             children: [
-                              StatCard(),
-                              StatCard(),
-                              StatCard(),
+                              Text(
+                                course.courseCode.substring(0, 9),
+                                style: context.textSmall,
+                              ),
+                              Text(
+                                course.courseCode.substring(9),
+                                style: context.textSmall,
+                              ),
+                              Text(
+                                course.category,
+                                style: context.textSmall,
+                              )
                             ],
                           ),
-                        )
-                      ],
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: context.responsiveSize(10)),
+                            width: context.responsiveSize(196),
+                            height: context.responsiveSize(31),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                StatCard(
+                                  type: "T",
+                                  value:
+                                      " ${double.parse(course.hoursConducted).toInt()}",
+                                  color: Colors.white,
+                                ),
+                                StatCard(
+                                  type: "P",
+                                  value:
+                                      " ${double.parse(course.hoursPresent).toInt()}",
+                                  color: Colors.green,
+                                ),
+                                StatCard(
+                                  type: "A",
+                                  value:
+                                      " ${double.parse(course.hoursAbsent).toInt()}",
+                                  color: Colors.red,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     Container(
-                      width: context.responsiveSize(62),
-                      height: context.responsiveSize(97),
                       child: Column(
                         children: [
                           Text(
-                            "4",
+                            course.required <= 0
+                                ? course.margin.toString()
+                                : course.required.toString(),
                             style: TextStyle(
                                 fontSize: context.responsiveSize(36),
                                 fontWeight: FontWeight.w700,
-                                color: Colors.green.shade600),
+                                color: course.required <= 0
+                                    ? Colors.green.shade600
+                                    : Colors.red),
                           ),
-                          Text("Margin",
+                          Text(course.required <= 0 ? "Margin" : "Required",
                               style: TextStyle(
                                   fontSize: context.responsiveSize(12),
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.green.shade600)),
-                          Text("90.91%",
+                                  color: course.required <= 0
+                                      ? Colors.green.shade600
+                                      : Colors.red)),
+                          Text("${course.attendancePercent}%",
                               style: TextStyle(
                                 fontSize: context.responsiveSize(16),
                                 fontWeight: FontWeight.w700,
@@ -105,26 +151,36 @@ class AttendanceWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Container(
-                      width: context.responsiveSize(328),
-                      height: context.responsiveSize(3),
-                      color: Color.fromRGBO(0, 64, 111, 1),
-                    ),
-                    Container(
-                      width: context.responsiveSize(298.18),
-                      height: context.responsiveSize(3),
-                      color: Color.fromRGBO(0, 255, 56, 1),
-                    ),
-                    Container(
-                      width: context.responsiveSize(4),
-                      height: context.responsiveSize(11),
-                      margin: EdgeInsets.only(left: 246),
-                      color: Color.fromRGBO(0, 148, 255, 1),
-                    )
-                  ],
+                Padding(
+                  padding: EdgeInsets.all(context.responsiveSize(20)),
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      Container(
+                        width: context.responsiveSize(400),
+                        height: context.responsiveSize(3),
+                        color: const Color.fromRGBO(0, 64, 111, 1),
+                      ),
+                      Container(
+                        width: context.responsiveSize(
+                            (double.parse(course.hoursPresent)) /
+                                (double.parse(course.hoursConducted)) *
+                                400),
+                        height: context.responsiveSize(3),
+                        color: const Color.fromRGBO(0, 255, 56, 1),
+                      ),
+                      Container(
+                        width: context.responsiveSize(4),
+                        height: context.responsiveSize(11),
+                        margin: EdgeInsets.only(
+                            left: context.responsiveSize(
+                                (double.parse(course.hoursPresent)) /
+                                    (double.parse(course.hoursConducted)) *
+                                    400)),
+                        color: const Color.fromRGBO(0, 148, 255, 1),
+                      )
+                    ],
+                  ),
                 )
               ],
             ))

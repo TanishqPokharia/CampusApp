@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ScreenBase extends StatelessWidget {
-  const ScreenBase({super.key, required this.child, this.title});
+  const ScreenBase(
+      {super.key, required this.child, this.title, this.scrollPhysics});
   final Widget child;
   final String? title;
+  final ScrollPhysics? scrollPhysics;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: scrollPhysics,
         child: Stack(
           alignment: Alignment.topCenter,
           children: [

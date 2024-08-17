@@ -35,8 +35,8 @@ class DashboardScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Expanded(
-                          child:
-                              YourStanding(top: "82%", bottom: "Attendance")),
+                          child: YourStanding(
+                              top: "Loading", bottom: "Attendance")),
                       SizedBox(
                         width: context.responsiveSize(20),
                       ),
