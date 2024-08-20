@@ -185,7 +185,8 @@ class AttendanceWidget extends StatelessWidget {
               ],
             ))
         .asGlass(
-            tintColor: Colors.indigo.shade500,
+            tintColor: Colors.blue,
+            frosted: false,
             clipBorderRadius:
                 BorderRadius.circular(context.responsiveSize(20)));
   }
