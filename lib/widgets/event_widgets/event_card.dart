@@ -42,17 +42,17 @@ class EventCard extends StatelessWidget {
                   spacing: context.responsiveSize(10),
                   runSpacing: context.responsiveSize(10),
                   children: [
-                    EventTag(title: event.dates),
-                    EventTag(title: event.timing),
+                    FeatureTag(title: event.dates),
+                    FeatureTag(title: event.timing),
                     if (event.odsProvided)
-                      EventTag(title: "#ODs")
+                      FeatureTag(title: "#ODs")
                     else
                       SizedBox(),
                     if (event.refreshmentsProvided)
-                      EventTag(title: "#Refreshments")
+                      FeatureTag(title: "#Refreshments")
                     else
                       SizedBox(),
-                    ...event.labels.map((title) => EventTag(title: "#$title"))
+                    ...event.labels.map((title) => FeatureTag(title: "#$title"))
                   ],
                 ),
                 SizedBox(

@@ -52,4 +52,5 @@ extension ResponsiveExtensions on BuildContext {
   TextStyle? get textSmall => Theme.of(this).textTheme.titleSmall;
   TextStyle? get textMedium => Theme.of(this).textTheme.titleMedium;
   TextStyle? get textLarge => Theme.of(this).textTheme.titleLarge;
+  TextTheme get textTheme => Theme.of(this).textTheme;
 }

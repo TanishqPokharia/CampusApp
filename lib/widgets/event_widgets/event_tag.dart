@@ -2,8 +2,8 @@ import 'package:campus_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:glass/glass.dart';
 
-class EventTag extends StatelessWidget {
-  const EventTag({super.key, required this.title});
+class FeatureTag extends StatelessWidget {
+  const FeatureTag({super.key, required this.title});
   final String title;
 
   @override

@@ -9,7 +9,7 @@ class EventPopularity extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "Popularity:   $popularity",
+          "Popularity:   $popularity x",
           style: context.textSmall!.copyWith(
             color: Colors.blue.shade100,
           ),
