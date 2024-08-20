@@ -134,8 +134,7 @@ class AttendanceWidget extends StatelessWidget {
                                     : Colors.red),
                           ),
                           Text(course.required <= 0 ? "Margin" : "Required",
-                              style: TextStyle(
-                                  fontSize: context.responsiveSize(12),
+                              style: context.textSmall!.copyWith(
                                   fontWeight: FontWeight.w700,
                                   color: course.required <= 0
                                       ? Colors.green.shade600
