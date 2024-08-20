@@ -25,7 +25,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
     const DashboardScreen(),
     const AttendanceScreen(),
     const EventsScreen(),
-    const ClubsScreen(),
+    const ClubsScreen(), //MarksScreen()
     const MoreScreen(),
   ];
 
