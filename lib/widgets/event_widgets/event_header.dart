@@ -37,7 +37,7 @@ class EventHeader extends StatelessWidget {
               color: Colors.indigo,
               borderRadius: BorderRadius.circular(context.responsiveSize(20)),
               image: DecorationImage(
-                  fit: BoxFit.contain, image: NetworkImage(image))),
+                  fit: BoxFit.cover, image: NetworkImage(image))),
         )
       ],
     );

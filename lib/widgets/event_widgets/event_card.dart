@@ -17,11 +17,11 @@ class EventCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: context.responsiveSize(250),
+            height: context.responsiveSize(300),
             decoration: BoxDecoration(
-                color: Colors.indigo,
+                color: Colors.transparent,
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(event.bannerUrl)),
+                    fit: BoxFit.fill, image: NetworkImage(event.bannerUrl)),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(context.responsiveSize(10)),
                     topRight: Radius.circular(context.responsiveSize(10)))),
@@ -33,8 +33,8 @@ class EventCard extends StatelessWidget {
               children: [
                 EventHeader(
                     title: event.title,
-                    organizer: "SRMKZILLA",
-                    image: event.bannerUrl),
+                    organizer: event.clubName,
+                    image: event.logo),
                 SizedBox(
                   height: context.responsiveSize(20),
                 ),
@@ -71,8 +71,10 @@ class EventCard extends StatelessWidget {
                             .copyWith(fontSize: context.responsiveSize(20)),
                       ),
                       onPressed: () async {
-                        if (await canLaunchUrl(Uri.parse(event.websiteLink))) {
-                          if (!await launchUrl(Uri.parse(event.websiteLink))) {
+                        if (await canLaunchUrl(
+                            Uri.parse(event.websiteLink ?? ""))) {
+                          if (!await launchUrl(
+                              Uri.parse(event.websiteLink ?? ""))) {
                             throw Exception('Could not launch url');
                           }
                         }

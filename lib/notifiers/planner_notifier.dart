@@ -21,8 +21,10 @@ class PlannerNotifier extends StateNotifier<void> {
       } else {
         final body = jsonDecode(response.body) as Map<String, dynamic>;
         final plannerMonthList = List.from(body.values);
-        final List<PlannerMonth> planner =
-            plannerMonthList.map((data) => PlannerMonth.fromMap(data)).toList();
+        final List<PlannerMonth> planner = plannerMonthList
+            .map((data) => PlannerMonth.fromMap(data)
+                .copyWith(monthIndex: plannerMonthList.indexOf(data)))
+            .toList();
         return planner;
       }
     } catch (e) {

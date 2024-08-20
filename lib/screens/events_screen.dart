@@ -38,8 +38,8 @@ class EventsScreen extends ConsumerWidget {
               error: (error, stackTrace) {
                 print(error);
                 print(stackTrace);
-                return Center(
-                  child: Text(error.toString()),
+                return const Center(
+                  child: Text("Error"),
                 );
               },
             ));

@@ -34,7 +34,7 @@ class EventsNotifier extends StateNotifier<void> {
       }
     } catch (e) {
       print(e);
-      return [];
+      rethrow;
     }
   }
 }

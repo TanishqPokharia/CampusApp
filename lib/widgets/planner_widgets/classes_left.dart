@@ -21,7 +21,6 @@ class _ClassesLeftWidgetState extends State<ClassesLeftWidget> {
         });
       },
       child: AnimatedContainer(
-        height: context.responsiveSize(90),
         width: context.responsiveSize(isExpanded ? 300 : 80),
         curve: Curves.ease,
         duration: const Duration(milliseconds: 500),

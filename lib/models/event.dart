@@ -6,64 +6,72 @@ import 'package:flutter/foundation.dart';
 class Event {
   final String id;
   final String clubId;
+  final String clubName;
   final String bannerUrl;
   final String title;
-  final String websiteLink;
+  final String? websiteLink;
   final String dates;
   final String timing;
   final bool odsProvided;
   final bool refreshmentsProvided;
   final List<String> labels;
+  final String logo;
   final String createdAt;
   final String updatedAt;
   final List<String>? likedBy;
-  final num popularity;
+  final num? popularity;
   Event({
     required this.id,
     required this.clubId,
+    required this.clubName,
     required this.bannerUrl,
     required this.title,
-    required this.websiteLink,
+    this.websiteLink,
     required this.dates,
     required this.timing,
-    required this.odsProvided,
-    required this.refreshmentsProvided,
+    this.odsProvided = false,
+    this.refreshmentsProvided = false,
     required this.labels,
+    required this.logo,
     required this.createdAt,
     required this.updatedAt,
     this.likedBy,
-    required this.popularity,
+    this.popularity,
   });
 
   Event copyWith({
     String? id,
-    String? clubId,
-    String? bannerUrl,
+    String? club_id,
+    String? club_name,
+    String? banner_url,
     String? title,
-    String? websiteLink,
+    String? website_ink,
     String? dates,
     String? timing,
-    bool? odsProvided,
-    bool? refreshmentsProvided,
-    List<String>? labels,
-    String? createdAt,
-    String? updatedAt,
+    bool? ods_provided,
+    bool? refreshments_provided,
+    List<String>? Labels,
+    String? logo,
+    String? created_at,
+    String? updated_at,
     List<String>? likedBy,
     num? popularity,
   }) {
     return Event(
       id: id ?? this.id,
-      clubId: clubId ?? this.clubId,
-      bannerUrl: bannerUrl ?? this.bannerUrl,
+      clubId: club_id ?? this.clubId,
+      clubName: club_name ?? this.clubName,
+      bannerUrl: banner_url ?? this.bannerUrl,
       title: title ?? this.title,
-      websiteLink: websiteLink ?? this.websiteLink,
+      websiteLink: website_ink ?? this.websiteLink,
       dates: dates ?? this.dates,
       timing: timing ?? this.timing,
-      odsProvided: odsProvided ?? this.odsProvided,
-      refreshmentsProvided: refreshmentsProvided ?? this.refreshmentsProvided,
-      labels: labels ?? this.labels,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
+      odsProvided: ods_provided ?? this.odsProvided,
+      refreshmentsProvided: refreshments_provided ?? this.refreshmentsProvided,
+      labels: Labels ?? this.labels,
+      logo: logo ?? this.logo,
+      createdAt: created_at ?? this.createdAt,
+      updatedAt: updated_at ?? this.updatedAt,
       likedBy: likedBy ?? this.likedBy,
       popularity: popularity ?? this.popularity,
     );
@@ -71,8 +79,9 @@ class Event {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'ID': id,
-      'ClubID': clubId,
+      'id': id,
+      'club_id': clubId,
+      'club_name': clubName,
       'banner_url': bannerUrl,
       'title': title,
       'website_link': websiteLink,
@@ -80,32 +89,34 @@ class Event {
       'timing': timing,
       'ods_provided': odsProvided,
       'refreshments_provided': refreshmentsProvided,
-      'labels': labels,
-      'CreatedAt': createdAt,
-      'UpdatedAt': updatedAt,
-      'likedby': likedBy,
+      'Labels': labels,
+      'logo': logo,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+      'likedBy': likedBy,
       'popularity': popularity,
     };
   }
 
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
-      id: map['ID'] as String,
-      clubId: map['ClubID'] as String,
+      id: map['id'] as String,
+      clubId: map['club_id'] as String,
+      clubName: map['club_name'] as String,
       bannerUrl: map['banner_url'] as String,
       title: map['title'] as String,
-      websiteLink: map['website_link'] as String,
+      websiteLink:
+          map['website_link'] != null ? map['website_link'] as String : null,
       dates: map['dates'] as String,
       timing: map['timing'] as String,
-      odsProvided: map['ods_provided'] as bool,
-      refreshmentsProvided: map['refreshments_provided'] as bool,
-      labels: List<String>.from((map['labels'])),
-      createdAt: map['CreatedAt'] as String,
-      updatedAt: map['UpdatedAt'] as String,
-      likedBy: map['likedby'] != null
-          ? List<String>.from(map['likedby'] as List)
-          : null,
-      popularity: map['popularity'] as num,
+      odsProvided: map['ods_provided'] ?? false,
+      refreshmentsProvided: map['refreshments_provided'] ?? false,
+      labels: List<String>.from((map['Labels'])),
+      logo: map['logo'] as String,
+      createdAt: map['created_at'] as String,
+      updatedAt: map['updated_at'] as String,
+      likedBy: map['likedBy'] != null ? List.from((map['likedBy'])) : null,
+      popularity: map['popularity'] != null ? map['popularity'] as num : null,
     );
   }
 
@@ -116,7 +127,7 @@ class Event {
 
   @override
   String toString() {
-    return 'Event(id: $id, clubId: $clubId, bannerUrl: $bannerUrl, title: $title, websiteLink: $websiteLink, dates: $dates, timing: $timing, odsProvided: $odsProvided, refreshmentsProvided: $refreshmentsProvided, labels: $labels, createdAt: $createdAt, updatedAt: $updatedAt, likedBy: $likedBy, popularity: $popularity)';
+    return 'Event(id: $id, club_id: $clubId, banner_url: $bannerUrl, title: $title, website_ink: $websiteLink, dates: $dates, timing: $timing, ods_provided: $odsProvided, refreshments_provided: $refreshmentsProvided, Labels: $labels, logo: $logo, created_at: $createdAt, updated_at: $updatedAt, likedBy: $likedBy, popularity: $popularity)';
   }
 
   @override
@@ -133,6 +144,7 @@ class Event {
         other.odsProvided == odsProvided &&
         other.refreshmentsProvided == refreshmentsProvided &&
         listEquals(other.labels, labels) &&
+        other.logo == logo &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt &&
         listEquals(other.likedBy, likedBy) &&
@@ -151,6 +163,7 @@ class Event {
         odsProvided.hashCode ^
         refreshmentsProvided.hashCode ^
         labels.hashCode ^
+        logo.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode ^
         likedBy.hashCode ^

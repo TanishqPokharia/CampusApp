@@ -9,22 +9,23 @@ class PlannerMonth {
   final List<PlannerData> plannerData;
   final List<int> holiday;
   final int holidayCount;
-  PlannerMonth({
-    required this.plannerData,
-    required this.holiday,
-    required this.holidayCount,
-  });
+  final int? monthIndex;
+  PlannerMonth(
+      {required this.plannerData,
+      required this.holiday,
+      required this.holidayCount,
+      this.monthIndex});
 
-  PlannerMonth copyWith({
-    List<PlannerData>? plannerData,
-    List<int>? holiday,
-    int? holidayCount,
-  }) {
+  PlannerMonth copyWith(
+      {List<PlannerData>? plannerData,
+      List<int>? holiday,
+      int? holidayCount,
+      int? monthIndex}) {
     return PlannerMonth(
-      plannerData: plannerData ?? this.plannerData,
-      holiday: holiday ?? this.holiday,
-      holidayCount: holidayCount ?? this.holidayCount,
-    );
+        plannerData: plannerData ?? this.plannerData,
+        holiday: holiday ?? this.holiday,
+        holidayCount: holidayCount ?? this.holidayCount,
+        monthIndex: monthIndex ?? this.monthIndex);
   }
 
   Map<String, dynamic> toMap() {
