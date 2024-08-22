@@ -121,38 +121,58 @@ class DashboardScreen extends ConsumerWidget {
           Container(
             margin: EdgeInsets.only(top: context.responsiveSize(20)),
             child: const FeatureTitle(
-                icon: Icons.notifications, title: "Notifications"),
+                icon: Icons.wb_sunny_outlined, title: "Time Table"),
           ),
-          Container(
-            height: context.responsiveSize(220),
-            margin:
-                EdgeInsets.symmetric(horizontal: context.responsiveSize(20)),
-            child: ListView(
+          Padding(
+            padding: EdgeInsets.all(context.responsiveSize(20)),
+            child: Column(
               children: [
-                const NotificationTile(
-                    title: "Marked absent for environmental science",
-                    impact: false),
-                SizedBox(
-                  height: context.responsiveSize(20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ...[1, 2, 3, 4, 5].map((day) => DayOrderIndicator(
+                          day: day.toString(),
+                        ))
+                  ],
                 ),
-                const NotificationTile(
-                    title:
-                        "You now have 75% attendance in Constitution of India",
-                    impact: true)
               ],
             ),
           ),
-          Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: context.responsiveSize(20),
-                  horizontal: context.responsiveSize(20)),
-              child: NotificationDrawer(onTap: () {}, isOpened: false)),
+          // Container(
+          //   margin: EdgeInsets.only(top: context.responsiveSize(20)),
+          //   child: const FeatureTitle(
+          //       icon: Icons.notifications, title: "Notifications"),
+          // ),
+          // Container(
+          //   height: context.responsiveSize(220),
+          //   margin:
+          //       EdgeInsets.symmetric(horizontal: context.responsiveSize(20)),
+          //   child: ListView(
+          //     children: [
+          //       const NotificationTile(
+          //           title: "Marked absent for environmental science",
+          //           impact: false),
+          //       SizedBox(
+          //         height: context.responsiveSize(20),
+          //       ),
+          //       const NotificationTile(
+          //           title:
+          //               "You now have 75% attendance in Constitution of India",
+          //           impact: true)
+          //     ],
+          //   ),
+          // ),
+          // Container(
+          //     margin: EdgeInsets.symmetric(
+          //         vertical: context.responsiveSize(20),
+          //         horizontal: context.responsiveSize(20)),
+          //     child: NotificationDrawer(onTap: () {}, isOpened: false)),
           Container(
             margin: EdgeInsets.only(top: context.responsiveSize(20)),
             child: const FeatureTitle(icon: Icons.event, title: "Events"),
           ),
           ref.watch(eventsProvider).when(
-                loading: () => Center(
+                loading: () => const Center(
                   child: CircularProgressIndicator(),
                 ),
                 data: (data) {
@@ -168,8 +188,29 @@ class DashboardScreen extends ConsumerWidget {
                   print(stackTrace);
                   return const Text("Could not fetch events");
                 },
-              )
+              ),
         ],
+      ),
+    );
+  }
+}
+
+class DayOrderIndicator extends StatelessWidget {
+  const DayOrderIndicator({super.key, required this.day});
+
+  final String day;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(context.responsiveSize(10)),
+      width: context.responsiveSize(50),
+      decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(context.responsiveSize(10))),
+      child: Text(
+        day,
+        textAlign: TextAlign.center,
       ),
     );
   }

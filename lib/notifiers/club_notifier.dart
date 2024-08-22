@@ -8,10 +8,10 @@ import 'package:http/http.dart' as http;
 import 'package:campus_app/cookie_storage.dart';
 import 'package:campus_app/models/club.dart';
 
-class ClubNotifier extends StateNotifier<void> {
+class ClubNotifier extends StateNotifier<List<Club>> {
   ClubNotifier(
     this.cookieStorage,
-  ) : super(());
+  ) : super([]);
 
   final CookieStorage cookieStorage;
 
@@ -27,13 +27,16 @@ class ClubNotifier extends StateNotifier<void> {
         final body = jsonDecode(response.body);
         final List<dynamic> clubs = body['data']['clubs'];
         print(clubs);
-        final List<Club> clubsList =
-            clubs.map((event) => Club.fromMap(event)).toList();
-        return clubsList;
+        state = clubs.map((event) => Club.fromMap(event)).toList();
+        return state;
       }
     } catch (e) {
       print(e);
       rethrow;
     }
+  }
+
+  void filteredClubs(List<Club> clubs, String name) {
+    state = clubs.where((e) => e.name.toLowerCase().contains(name)).toList();
   }
 }

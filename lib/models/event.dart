@@ -89,11 +89,11 @@ class Event {
       'timing': timing,
       'ods_provided': odsProvided,
       'refreshments_provided': refreshmentsProvided,
-      'Labels': labels,
+      'labels': labels,
       'logo': logo,
       'created_at': createdAt,
       'updated_at': updatedAt,
-      'likedBy': likedBy,
+      'likedby': likedBy,
       'popularity': popularity,
     };
   }
@@ -111,11 +111,11 @@ class Event {
       timing: map['timing'] as String,
       odsProvided: map['ods_provided'] ?? false,
       refreshmentsProvided: map['refreshments_provided'] ?? false,
-      labels: List<String>.from((map['Labels'])),
+      labels: List<String>.from((map['labels'])),
       logo: map['logo'] as String,
       createdAt: map['created_at'] as String,
       updatedAt: map['updated_at'] as String,
-      likedBy: map['likedBy'] != null ? List.from((map['likedBy'])) : null,
+      likedBy: map['likedby'] != null ? List.from((map['likedby'])) : null,
       popularity: map['popularity'] != null ? map['popularity'] as num : null,
     );
   }

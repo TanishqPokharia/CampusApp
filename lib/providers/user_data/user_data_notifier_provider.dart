@@ -4,5 +4,5 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final userDataNotifierProvider =
     StateNotifierProvider<UserDataNotifier, void>((ref) {
-  return UserDataNotifier(CookieStorage());
+  return UserDataNotifier(CookieStorage(), ref);
 });
